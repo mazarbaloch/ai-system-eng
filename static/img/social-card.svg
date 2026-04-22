@@ -1,0 +1,25 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="90" y1="30" x2="1030" y2="590" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F2F7FF"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="330" y1="140" x2="812" y2="430" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2F62E8"/>
+      <stop offset="1" stop-color="#89ADFB"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" rx="32" fill="url(#bg)"/>
+  <circle cx="920" cy="150" r="56" fill="#EEF3FF"/>
+  <circle cx="1010" cy="216" r="34" fill="#F4F7FF"/>
+  <path d="M669 457C797 336 903 288 1015 312C1088 328 1141 373 1200 431V630H669V457Z" fill="#EEF3FF"/>
+  <path d="M709 468C804 389 890 349 977 361C1059 372 1129 441 1200 479" stroke="#D8E5FF" stroke-width="24" stroke-linecap="round"/>
+  <path d="M66 94 112 120.5V173.5L66 200 20 173.5V120.5L66 94Z" stroke="#1E49CA" stroke-width="10" stroke-linejoin="round"/>
+  <text x="150" y="166" fill="#0D1638" font-size="56" font-family="Manrope, Arial, sans-serif" font-weight="800">Applied AI Companion</text>
+  <text x="88" y="290" fill="#0D1638" font-size="84" font-family="Manrope, Arial, sans-serif" font-weight="800">AI Systems Engineering</text>
+  <text x="88" y="350" fill="url(#accent)" font-size="46" font-family="Manrope, Arial, sans-serif" font-weight="700">Design of LLM &amp; Multimodal AI Applications</text>
+  <text x="88" y="430" fill="#42537E" font-size="28" font-family="Instrument Sans, Arial, sans-serif">
+    <tspan x="88" dy="0">Build modern AI systems with retrieval, agents, orchestration,</tspan>
+    <tspan x="88" dy="42">evaluation, and production-ready workflows.</tspan>
+  </text>
+</svg>

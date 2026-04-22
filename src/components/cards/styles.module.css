@@ -1,0 +1,122 @@
+.featureCard,
+.moduleCard {
+  display: grid;
+  gap: 1.2rem;
+  min-height: 100%;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-card);
+}
+
+.featureCard {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 1.05rem;
+  padding: 1.55rem 1.45rem;
+}
+
+.moduleCard {
+  text-decoration: none !important;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.moduleCard:hover,
+.moduleCard:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(47, 98, 232, 0.25);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.moduleHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem;
+}
+
+.moduleNumber {
+  color: var(--color-ink-500);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.cardBody {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1.28rem;
+  line-height: 1.15;
+  color: var(--color-ink-950);
+}
+
+.cardDescription {
+  margin: 0;
+  color: var(--color-ink-700);
+  font-size: 0.99rem;
+  line-height: 1.62;
+}
+
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: auto;
+}
+
+.tag {
+  display: inline-flex;
+  min-height: 2rem;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-100);
+  color: var(--color-ink-700);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.compactModuleCard {
+  gap: 0.95rem;
+  padding: 1.15rem 1rem 1.05rem;
+  align-content: start;
+}
+
+.compactModuleCard .moduleHeader {
+  align-items: flex-start;
+}
+
+.compactModuleCard .cardBody {
+  gap: 0.5rem;
+}
+
+.compactModuleCard .cardTitle {
+  font-size: 0.98rem;
+  line-height: 1.14;
+}
+
+.compactModuleCard .cardDescription {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 0.88rem;
+  line-height: 1.46;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+@media (max-width: 640px) {
+  .featureCard {
+    grid-template-columns: 1fr;
+  }
+
+  .compactModuleCard {
+    padding: 1.2rem 1.1rem;
+  }
+}

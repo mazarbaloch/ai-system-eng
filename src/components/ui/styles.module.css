@@ -1,0 +1,193 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-weight: 700;
+  text-decoration: none !important;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.buttonIcon {
+  display: inline-flex;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.md {
+  min-height: 3.25rem;
+  padding: 0.9rem 1.35rem;
+}
+
+.lg {
+  min-height: 3.45rem;
+  padding: 0.95rem 1.45rem;
+}
+
+.primary {
+  background: linear-gradient(135deg, var(--color-brand-600), var(--color-brand-500));
+  color: #ffffff !important;
+  box-shadow: 0 16px 30px rgba(30, 73, 202, 0.2);
+}
+
+.outline {
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--color-brand-600) !important;
+  border-color: rgba(47, 98, 232, 0.35);
+  box-shadow: 0 10px 24px rgba(31, 48, 92, 0.05);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--color-ink-800) !important;
+  border-color: var(--color-border-soft);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: fit-content;
+  min-height: 2.4rem;
+  padding: 0.4rem 0.95rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(217, 79, 116, 0.14);
+  background: linear-gradient(180deg, rgba(255, 240, 244, 0.95), rgba(255, 245, 248, 0.95));
+  color: var(--color-rose-strong);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.section {
+  padding-block: 1.25rem 2.4rem;
+}
+
+.sectionHeader {
+  display: grid;
+  gap: 0.85rem;
+  margin-bottom: 1.35rem;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.4vw, 2.6rem);
+  color: var(--color-ink-950);
+}
+
+.sectionDescription {
+  max-width: 46rem;
+  margin: 0;
+  color: var(--color-ink-700);
+  font-size: var(--text-md);
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.iconBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.8rem;
+  height: 3.8rem;
+  border-radius: 1.15rem;
+}
+
+.sm {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1rem;
+}
+
+.iconGlyph {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.iconGlyphSm {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.brand {
+  background: rgba(47, 98, 232, 0.1);
+  color: var(--color-brand-600);
+}
+
+.rose {
+  background: rgba(217, 79, 116, 0.1);
+  color: var(--color-rose-strong);
+}
+
+.green {
+  background: rgba(22, 122, 84, 0.1);
+  color: var(--color-green-strong);
+}
+
+.violet {
+  background: rgba(125, 79, 240, 0.1);
+  color: var(--color-violet-strong);
+}
+
+.amber {
+  background: rgba(213, 122, 31, 0.1);
+  color: var(--color-amber-strong);
+}
+
+.cyan {
+  background: rgba(12, 122, 163, 0.1);
+  color: var(--color-cyan-strong);
+}
+
+.pageHeader {
+  display: grid;
+  gap: 1.05rem;
+  margin-bottom: 2rem;
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: clamp(2.2rem, 3.6vw, 3.4rem);
+  line-height: 1.05;
+}
+
+.pageDescription {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--color-ink-700);
+  font-size: var(--text-md);
+}
+
+.pageActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+@media (max-width: 996px) {
+  .contentGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+}
