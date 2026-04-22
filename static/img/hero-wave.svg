@@ -1,0 +1,15 @@
+<svg width="900" height="520" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="paint0" x1="90" y1="60" x2="790" y2="470" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E7EEFF"/>
+      <stop offset="1" stop-color="#D4E1FF" stop-opacity="0.2"/>
+    </linearGradient>
+    <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="#B9CCFF" fill-opacity="0.55"/>
+    </pattern>
+  </defs>
+  <path d="M44 370C140 308 212 255 311 287C406 318 452 396 548 380C651 363 684 254 786 234C832 224 867 228 900 236V520H44V370Z" fill="url(#paint0)"/>
+  <path d="M98 367C164 315 234 274 309 287C399 302 447 380 533 378C631 374 694 278 793 261C830 255 864 257 900 264" stroke="#D7E4FF" stroke-width="26" stroke-linecap="round"/>
+  <path d="M69 408C150 342 233 301 315 316C404 333 459 418 549 420C649 422 716 334 814 319C845 314 874 316 900 322" stroke="#E5EEFF" stroke-width="22" stroke-linecap="round"/>
+  <path d="M150 413C222 365 275 343 339 353C416 365 481 450 568 454C651 458 721 389 816 371C845 365 873 364 900 368V520H150V413Z" fill="url(#dots)" fill-opacity="0.72"/>
+</svg>

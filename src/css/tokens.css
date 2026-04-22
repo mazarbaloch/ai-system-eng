@@ -1,0 +1,109 @@
+:root {
+  --font-sans: 'Instrument Sans', 'Segoe UI', sans-serif;
+  --font-display: 'Manrope', 'Instrument Sans', sans-serif;
+
+  --color-brand-50: #edf3ff;
+  --color-brand-100: #d8e5ff;
+  --color-brand-200: #b6cdfd;
+  --color-brand-300: #89adfb;
+  --color-brand-400: #5f88f4;
+  --color-brand-500: #2f62e8;
+  --color-brand-600: #1e49ca;
+  --color-brand-700: #19399d;
+  --color-brand-800: #162f7f;
+  --color-brand-900: #13255f;
+
+  --color-ink-950: #0d1638;
+  --color-ink-900: #14204f;
+  --color-ink-800: #29386d;
+  --color-ink-700: #42537e;
+  --color-ink-600: #5d6b92;
+  --color-ink-500: #7d89aa;
+
+  --color-surface-0: #ffffff;
+  --color-surface-25: #fcfdff;
+  --color-surface-50: #f7f9fd;
+  --color-surface-100: #eef3fb;
+  --color-surface-200: #e3eaf6;
+
+  --color-border-soft: rgba(20, 32, 79, 0.1);
+  --color-border-strong: rgba(20, 32, 79, 0.18);
+
+  --color-rose-soft: #fff0f4;
+  --color-rose-strong: #d94f74;
+  --color-green-soft: #edf8f2;
+  --color-green-strong: #167a54;
+  --color-violet-soft: #f3edff;
+  --color-violet-strong: #7d4ff0;
+  --color-amber-soft: #fff4e8;
+  --color-amber-strong: #d57a1f;
+  --color-cyan-soft: #ecf7fb;
+  --color-cyan-strong: #0c7aa3;
+
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 12px 28px rgba(21, 44, 92, 0.07);
+  --shadow-card-hover: 0 16px 34px rgba(21, 44, 92, 0.12);
+  --shadow-soft: 0 18px 38px rgba(36, 62, 119, 0.08);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 2rem;
+  --space-8: 2.5rem;
+  --space-9: 3rem;
+  --space-10: 4rem;
+  --space-11: 5rem;
+
+  --text-xs: 0.8rem;
+  --text-sm: 0.95rem;
+  --text-base: 1rem;
+  --text-md: 1.08rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: clamp(1.8rem, 2vw, 2.35rem);
+  --text-3xl: clamp(2.8rem, 5vw, 4.8rem);
+
+  --content-max: 1480px;
+  --content-narrow: 900px;
+  --section-gap: clamp(4rem, 8vw, 6rem);
+
+  --ifm-color-primary: var(--color-brand-600);
+  --ifm-color-primary-dark: var(--color-brand-700);
+  --ifm-color-primary-darker: var(--color-brand-800);
+  --ifm-color-primary-darkest: var(--color-brand-900);
+  --ifm-color-primary-light: var(--color-brand-500);
+  --ifm-color-primary-lighter: var(--color-brand-400);
+  --ifm-color-primary-lightest: var(--color-brand-300);
+  --ifm-background-color: var(--color-surface-0);
+  --ifm-background-surface-color: var(--color-surface-0);
+  --ifm-navbar-background-color: rgba(255, 255, 255, 0.9);
+  --ifm-footer-background-color: var(--color-surface-0);
+  --ifm-font-family-base: var(--font-sans);
+  --ifm-heading-font-family: var(--font-display);
+  --ifm-font-color-base: var(--color-ink-800);
+  --ifm-heading-color: var(--color-ink-950);
+  --ifm-link-color: var(--color-brand-600);
+  --ifm-menu-color: var(--color-ink-700);
+  --ifm-menu-color-active: var(--color-brand-600);
+  --ifm-navbar-link-color: var(--color-ink-800);
+  --ifm-navbar-height: 80px;
+  --ifm-code-font-size: 94%;
+  --ifm-h1-font-size: clamp(2.3rem, 4vw, 3.75rem);
+  --ifm-h2-font-size: clamp(1.7rem, 3vw, 2.5rem);
+  --ifm-h3-font-size: 1.3rem;
+  --ifm-heading-font-weight: 800;
+  --ifm-line-height-base: 1.7;
+  --ifm-global-radius: var(--radius-md);
+  --ifm-button-border-radius: var(--radius-sm);
+  --ifm-card-border-radius: var(--radius-lg);
+  --ifm-global-shadow-lw: var(--shadow-card);
+  --docusaurus-highlighted-code-line-bg: rgba(47, 98, 232, 0.08);
+}

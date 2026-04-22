@@ -1,0 +1,28 @@
+---
+title: Authoring Guide
+hide_title: true
+sidebar_position: 3
+slug: /resources/authoring-guide
+description: Guidance for extending the course site with new modules and content.
+---
+
+<PageHeader
+  eyebrow="Contributor guide"
+  title="How to add new course content"
+  description="This site is structured so contributors can add modules, labs, projects, and resources with minimal changes to the UI layer."
+/>
+
+<LearningObjectives
+  title="Authoring workflow"
+  items={[
+    'Add or update structured metadata in src/data/curriculum/modules.ts when a new module is introduced.',
+    'Create the matching MDX page in docs/modules/<module-slug>/index.mdx.',
+    'Use ModulePageHero, ModuleTopics, CourseCallout, and ResourceLinks to keep doc pages consistent.',
+    'Update courseSite.featuredModuleSlugs only when the homepage should spotlight a different module set.',
+    'Adjust brand tokens in src/css/tokens.css instead of scattering color changes across components.',
+  ]}
+/>
+
+<CourseCallout title="Frontmatter conventions">
+  Give each page a clear <code>title</code>, <code>description</code>, and predictable <code>slug</code>. Use folder-based docs for modules so new lectures or labs can be nested later without restructuring the site.
+</CourseCallout>
