@@ -1,13 +1,14 @@
 ---
-title: Lecture - System Thinking for AI Applications
+title: Lecture 1.1 — System Thinking for AI Applications
 hide_title: true
+sidebar_label: Lecture 1.1 — System Thinking for AI Applications
 sidebar_position: 2
-slug: /modules/module-01-foundations/lecture-system-thinking
-description: Lecture on system thinking for modern AI applications.
+slug: /modules/module-01-foundations/lecture-1-1-system-thinking
+description: Lecture 1.1 on system thinking for modern AI applications.
 ---
 
 <PageHeader
-  eyebrow="Lecture 01"
+  eyebrow="Lecture 1.1"
   title="System Thinking for AI Applications"
   description="This lecture develops the core analytical habit of the course: explain AI behavior in terms of interacting components, interfaces, state, policies, and feedback loops rather than attributing everything to the model alone."
 />
@@ -116,23 +117,23 @@ Many architectures are possible, but a useful first approximation is to separate
 of recurring layers.
 
 ```mermaid
-flowchart TD
-    U["User or upstream service"] --> A["Application layer<br/>UI, API contract, permissions, workflow"]
-    A --> O["Orchestration layer<br/>prompt assembly, routing, policy checks"]
-    O --> R["Retrieval and context layer<br/>search, chunking, ranking, memory lookup"]
-    O --> T["Tool layer<br/>APIs, databases, code execution, business actions"]
-    O --> M["Model layer<br/>LLM, classifier, ranker, embedder"]
-    R --> O
-    T --> O
-    M --> O
-    O --> P["Post-processing and validation<br/>schema checks, citations, safety filters"]
-    P --> A
-    A --> U
-    O -. traces, metrics, eval samples .-> E["Observability and evaluation"]
+flowchart LR
+    User["User request"] --> App["Application layer<br/>UI, API contract, permissions"]
+    App --> Orch["Orchestration layer<br/>routing, prompt policy, retries"]
+    Orch --> Retrieval["Retrieval & context<br/>search, ranking, memory"]
+    Orch --> Tools["Tool layer<br/>APIs, databases, external actions"]
+    Retrieval --> Model["Model layer<br/>LLM or multimodal inference"]
+    Tools --> Model
+    Orch --> Model
+    Model --> Validate["Validation & post-processing<br/>schemas, citations, safety checks"]
+    Validate --> Response["Response / output"]
+    Validate --> Observe["Observability & evaluation<br/>traces, metrics, review"]
+    Observe --> Improve["Iteration / improvement loop"]
+    Improve --> Orch
 ```
 
-This diagram is intentionally simplified, but it already illustrates a key point: the model is only one node in the
-request path.
+This diagram is intentionally simplified, but it illustrates two key points: the model is only one node in the request
+path, and production systems also require feedback loops that improve future behavior.
 
 ### Application layer
 
@@ -383,6 +384,32 @@ When evaluating or designing an AI application, the following checklist is often
 This checklist is intentionally practical. The goal is not to make every system complex. The goal is to make every
 important dependency visible.
 
+## In-class activity: decompose a real AI application
+
+Choose one AI application and spend 15 minutes decomposing it as a system. Good candidates include an AI coding
+assistant, a customer-support chatbot, a document QA assistant, or an AI tutor for course materials.
+
+For the chosen application, identify:
+
+- the **application layer**: who uses it, what workflow it supports, and what permissions matter
+- the **orchestration layer**: how the request is routed, what prompts are assembled, and what control decisions happen
+- the **retrieval/context layer**: what documents, memories, examples, or metadata are supplied to the model
+- the **tool layer**: what external APIs, databases, code execution environments, or business systems may be called
+- the **model layer**: what inference task the model performs and what outputs it produces
+- the **validation layer**: what checks should happen before the user sees an answer or an action is taken
+- the **observability signals**: what traces, metrics, logs, examples, or user feedback would help debug failures
+
+At the end, compare two groups that chose different applications. The useful contrast is often not which model they
+used, but which system responsibilities became visible once the application was decomposed.
+
+## Check your understanding
+
+1. Why might upgrading the model fail to fix a poor AI assistant?
+2. What is one example of a system-level failure that is not primarily a model failure?
+3. What evidence would you collect to debug a wrong answer from a document QA assistant?
+4. Why is observability especially important in LLM-centered systems?
+5. Which parts of the system can affect latency before the response reaches the user?
+
 ## Key takeaways
 
 - System thinking explains AI behavior at the level of interacting components rather than attributing everything to the
@@ -408,7 +435,7 @@ of one part of the system map introduced here.
   title="Continue learning"
   items={[
     {label: 'Module 01 overview', href: '/docs/modules/module-01-foundations'},
-    {label: 'Module 06 - Memory & Stateful Systems', href: '/docs/modules/module-06-memory-stateful-systems'},
-    {label: 'Module 09 - System Design Patterns', href: '/docs/modules/module-09-system-design-patterns'},
+    {label: 'Lecture 1.2 — Anatomy of an AI System', href: '/docs/modules/module-01-foundations/lecture-1-2-anatomy-ai-system'},
+    {label: 'Lab 1 — Decomposing an AI Application', href: '/docs/modules/module-01-foundations/lab-1-decomposing-ai-application'},
   ]}
 />

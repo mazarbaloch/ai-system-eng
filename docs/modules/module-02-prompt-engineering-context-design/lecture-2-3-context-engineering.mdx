@@ -1,0 +1,274 @@
+---
+title: "Lecture 2.3 — Context Engineering: Managing Inputs, Constraints, and Model Behavior"
+hide_title: true
+sidebar_label: "Lecture 2.3 — Context Engineering: Managing Inputs, Constraints, and Model Behavior"
+sidebar_position: 4
+slug: /modules/module-02-prompt-engineering-context-design/lecture-2-3-context-engineering
+description: Lecture 2.3 on context engineering as a central systems concept in LLM-centered applications.
+---
+
+import ContextEngineeringFlow from '@site/src/components/diagrams/ContextEngineeringFlow';
+
+<PageHeader
+  eyebrow="Lecture 2.3"
+  title="Context Engineering: Managing Inputs, Constraints, and Model Behavior"
+  description="This lecture treats context engineering as the system-level practice of selecting, organizing, compressing, grounding, and validating the information supplied to a model at inference time."
+/>
+
+<LearningObjectives
+  title="Lecture focus"
+  items={[
+    'Define context engineering and identify the kinds of information that may enter a model context.',
+    'Explain why finite context windows create tradeoffs around relevance, cost, latency, contradiction, and dilution.',
+    'Design context selection, compression, and ordering policies for LLM-centered systems.',
+    'Connect context engineering to retrieval-augmented generation, multimodal systems, validation, and observability.',
+  ]}
+/>
+
+<CourseCallout title="Central idea">
+  Context engineering is where many AI systems become systems rather than demos. The model's behavior depends not only
+  on its weights, but on what the surrounding software chooses to show it, hide from it, summarize, prioritize, and
+  validate for each request.
+</CourseCallout>
+
+## 1. What is context engineering?
+
+Context engineering is the design and management of all information supplied to the model at inference time. It includes
+prompt wording, but it is broader than prompt writing. It asks what the model should know for a specific request, where
+that information comes from, how trustworthy it is, how it should be represented, and how much of it should be included.
+
+In an LLM-centered system, context may include:
+
+- system instructions
+- developer or application instructions
+- the current user query
+- conversation history
+- retrieved documents
+- tool outputs
+- user profile or preferences
+- examples
+- constraints
+- output schemas
+- safety policies
+
+Context engineering is central because most modern applications rely on information that is not stored in the model
+weights: private documents, current policies, user-specific state, database records, code repositories, screenshots,
+tool results, or the recent conversation. The model can only use that information if the system supplies it in a usable
+form.
+
+## 2. Context window limitations
+
+Models have finite context windows. A larger context window can be useful, but it does not mean the best strategy is to
+include everything. Long contexts introduce practical and behavioral costs.
+
+### Irrelevant context
+
+Irrelevant context can distract the model, increase latency, raise cost, and make traces harder to inspect. If a course
+assistant receives five unrelated lectures for a narrow question, it may produce a broad answer that misses the relevant
+detail.
+
+### Stale context
+
+Stale context can be worse than missing context because it gives the model specific but outdated evidence. A policy
+assistant that retrieves last semester's grading rules may answer confidently and incorrectly.
+
+### Contradictory context
+
+Contradictory context creates ambiguity. If two retrieved documents disagree, the model may average them, pick one
+without justification, or invent a reconciliation. The system should supply metadata such as document version, date, or
+authority level when conflict is possible.
+
+### Context dilution
+
+Context dilution occurs when task-critical information is buried among lower-value text. Even if the important sentence
+is technically included, the model may not use it reliably. Ordering, summarization, and emphasis matter.
+
+### Token cost and latency
+
+Every token in the prompt has a cost. Larger prompts can increase latency, reduce throughput, and make repeated
+evaluation more expensive. Context engineering therefore affects product economics, not only answer quality.
+
+:::note
+The question is not "Can the model fit this context?" The better question is "Does this context improve the probability
+of the desired behavior enough to justify its cost and risk?"
+:::
+
+## 3. Context selection and compression
+
+Context selection decides what information should be included. Context compression decides how to represent it when the
+raw material is too large.
+
+Useful strategies include:
+
+- selecting the most relevant retrieved snippets rather than entire documents
+- summarizing conversation history into task-relevant state
+- trimming boilerplate, navigation text, repeated disclaimers, and low-value metadata
+- prioritizing high-confidence or authoritative sources
+- preserving task-critical details such as dates, requirements, constraints, and citations
+- keeping source identifiers so answers can be traced back to evidence
+
+Compression should be designed carefully. A summary can remove noise, but it can also remove exceptions, uncertainty,
+or details that become important later. For high-stakes tasks, the system may need to preserve raw excerpts alongside
+summaries.
+
+## 4. Context ordering
+
+Order can matter because the model processes a sequence, not an unordered database. Different providers and model
+families behave differently, but several practical patterns are widely useful:
+
+- put stable task instructions before dynamic content
+- keep the user's current task easy to find
+- place retrieved evidence near the task it supports
+- state the output format clearly and close to the point where the answer is requested
+- avoid burying constraints after long evidence blocks
+- separate evidence from instructions so retrieved text is not mistaken for policy
+
+A simple ordering for a grounded answer task might be:
+
+1. System or developer policy
+2. Task definition
+3. Output requirements
+4. Retrieved evidence with source IDs
+5. User question
+6. Fallback instruction for insufficient evidence
+
+The exact order should be tested. Context ordering is an empirical design choice, not a universal law.
+
+## 5. Grounding and source use
+
+Context engineering is tightly connected to retrieval-augmented generation. In RAG systems, retrieved content should
+support the answer. The model should not treat all context as equally reliable, and it should not invent support when
+the retrieved evidence is insufficient.
+
+Grounding practices include:
+
+- passing source identifiers with retrieved snippets
+- ranking or labeling sources by authority and freshness
+- instructing the model to distinguish evidence from speculation
+- requiring citations for claims that depend on retrieved material
+- validating that cited sources were actually retrieved
+- returning a fallback when evidence is missing or contradictory
+
+Grounding is a system behavior. The prompt can request source-grounded answers, but retrieval, metadata, output schema,
+and citation validation determine whether that request can be enforced.
+
+## 6. Multimodal extension
+
+The same context-engineering logic applies to multimodal AI systems. Images, diagrams, screenshots, audio transcripts,
+tables, PDFs, and slide decks may all become part of the context. The system must decide which modality-specific
+information to extract, include, summarize, or ignore.
+
+Examples:
+
+- A screenshot of an error message may be converted into OCR text plus UI metadata.
+- A diagram may be summarized into nodes, labels, arrows, and relationships.
+- A slide deck may be parsed into titles, bullets, speaker notes, and images.
+- Audio may be transcribed, diarized, and summarized before inclusion.
+- A PDF may require layout-aware extraction so tables and headings remain meaningful.
+
+Multimodal context increases the importance of provenance. If an answer depends on a chart, screenshot, or audio
+transcript, the system should preserve enough metadata to explain where the claim came from and how the source was
+processed.
+
+## 7. Context assembly flow
+
+<ContextEngineeringFlow />
+
+This flow emphasizes that context is constructed. It is not simply "everything we know." The builder decides what enters
+the model input, and the validator checks whether the model used the context acceptably.
+
+## 8. Code example: a simple context builder
+
+The following sketch shows a small context builder for a course assistant. It selects top retrieved snippets, includes a
+short conversation summary, and builds a final prompt package with source identifiers.
+
+```python
+from dataclasses import dataclass
+
+
+@dataclass
+class Snippet:
+    source_id: str
+    title: str
+    text: str
+    score: float
+
+
+def build_context_package(
+    user_query: str,
+    conversation_summary: str,
+    retrieved: list[Snippet],
+    max_snippets: int = 4,
+) -> dict:
+    selected = sorted(retrieved, key=lambda item: item.score, reverse=True)[:max_snippets]
+
+    evidence_block = "\n\n".join(
+        f"[{item.source_id}] {item.title}\n{item.text}"
+        for item in selected
+    )
+
+    prompt = f"""
+You are a graduate-level AI systems tutor.
+
+Use the provided course evidence when answering. If the evidence is insufficient,
+say what is missing instead of inventing details. Cite sources using their source IDs.
+
+Conversation summary:
+{conversation_summary or "No prior context is needed for this request."}
+
+Course evidence:
+{evidence_block or "No relevant course evidence was retrieved."}
+
+Student question:
+{user_query}
+
+Output format:
+- Direct answer
+- Evidence used
+- One follow-up study activity
+""".strip()
+
+    return {
+        "prompt": prompt,
+        "source_ids": [item.source_id for item in selected],
+        "context_count": len(selected),
+    }
+```
+
+This function is deliberately simple, but it includes several important system choices:
+
+- retrieved snippets are ranked and limited
+- each snippet retains a source ID
+- conversation history is summarized rather than copied wholesale
+- missing evidence is represented explicitly
+- the output structure is part of the context package
+
+In a production system, the trace should record the selected source IDs, ranking scores, template version, and validation
+result so failures can be reproduced.
+
+## 9. Key takeaways
+
+- Context engineering is the design and management of all information supplied to a model at inference time.
+- Context windows are finite, and more context can harm behavior through irrelevance, staleness, contradiction, dilution,
+  cost, and latency.
+- Good systems select, compress, order, and preserve context deliberately.
+- Grounded generation requires retrieval, metadata, prompt policy, output structure, and validation to work together.
+- Multimodal systems extend context engineering to screenshots, diagrams, audio, tables, PDFs, and other media sources.
+
+## Check your understanding
+
+1. What is the difference between prompt writing and context engineering?
+2. Why can adding more retrieved text make an answer worse?
+3. What information should be preserved when summarizing conversation history?
+4. How does citation validation support grounded generation?
+5. What new context-engineering decisions appear when a system accepts screenshots or diagrams?
+
+<ResourceLinks
+  title="Continue learning"
+  items={[
+    {label: 'Lecture 2.1 — Prompt Structures and Instruction Design', href: '/docs/modules/module-02-prompt-engineering-context-design/lecture-2-1-prompt-structures-instruction-design'},
+    {label: 'Lecture 2.2 — Few-Shot, Zero-Shot, and Example-Based Prompting', href: '/docs/modules/module-02-prompt-engineering-context-design/lecture-2-2-few-shot-zero-shot-example-prompting'},
+    {label: 'Lab 2 — Designing, Testing, and Improving Prompts', href: '/docs/modules/module-02-prompt-engineering-context-design/lab-2-designing-testing-improving-prompts'},
+    {label: 'Module 03 — Structured Outputs & Tool Integration', href: '/docs/modules/module-03-structured-outputs-tool-integration'},
+  ]}
+/>

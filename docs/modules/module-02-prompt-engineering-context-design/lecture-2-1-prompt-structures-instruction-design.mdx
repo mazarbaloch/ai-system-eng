@@ -1,0 +1,217 @@
+---
+title: "Lecture 2.1 — Prompt Structures and Instruction Design"
+hide_title: true
+sidebar_label: "Lecture 2.1 — Prompt Structures and Instruction Design"
+sidebar_position: 2
+slug: /modules/module-02-prompt-engineering-context-design/lecture-2-1-prompt-structures-instruction-design
+description: Lecture 2.1 on structured prompts, instruction hierarchy, and production prompt templates.
+---
+
+import PromptPriorityStack from '@site/src/components/diagrams/PromptPriorityStack';
+import PromptAssemblyPipeline from '@site/src/components/diagrams/PromptAssemblyPipeline';
+
+<PageHeader
+  eyebrow="Lecture 2.1"
+  title="Prompt Structures and Instruction Design"
+  description="This lecture explains how prompt structure affects model behavior and why production systems treat prompts as deliberate, versioned interfaces rather than informal messages."
+/>
+
+<LearningObjectives
+  title="Lecture focus"
+  items={[
+    'Explain why LLMs respond to structured context rather than isolated questions.',
+    'Identify common prompt components such as task, role, context, constraints, output format, examples, and evaluation criteria.',
+    'Reason about instruction hierarchy and conflicts across system, developer, user, retrieved, and tool-provided information.',
+    'Build prompt templates that make production behavior easier to test, reuse, and monitor.',
+  ]}
+/>
+
+<CourseCallout title="Lecture framing">
+  A prompt is a compact interface between software and a probabilistic model. The engineering question is not "What
+  clever phrase gets the best answer once?" but "What structure reliably represents the task, constraints, evidence, and
+  output contract across many realistic cases?"
+</CourseCallout>
+
+## 1. Why prompt structure matters
+
+Large language models do not simply answer questions. They generate outputs conditioned on the information presented in
+their context. That context may include instructions, examples, retrieved documents, prior conversation turns, tool
+results, schemas, and safety constraints. The prompt is the part of the system that organizes these signals into a form
+the model can use.
+
+Unstructured prompts leave many decisions implicit. If a user asks, "Summarize this article," the model must infer the
+audience, length, purpose, tone, level of detail, source-use policy, and output format. Different inferences may produce
+different answers. A structured prompt reduces this ambiguity by making the task contract explicit.
+
+Prompt structure is especially important in LLM-centered systems because prompts often sit between deterministic
+software and probabilistic generation. The application can assemble a prompt consistently, but the model may still vary
+in how it follows the instructions. A better structure improves controllability, but it should be paired with output
+validation, evaluation, and traces.
+
+## 2. Common prompt components
+
+Most production prompts contain several recurring components. Not every prompt needs all of them, but each component
+answers a different design question.
+
+| Component | Purpose | Example |
+| --- | --- | --- |
+| **System or developer instructions** | Define stable behavior and constraints for the assistant or application. | "Use only provided course material when answering." |
+| **User task** | State the immediate task requested by the user. | "Explain why retrieval quality affects answer quality." |
+| **Role or persona** | Specify domain stance, communication style, or expertise level. | "You are a graduate-level AI systems tutor." |
+| **Context/background** | Provide evidence, documents, prior state, or situational information. | Retrieved lecture notes, assignment instructions, tool results. |
+| **Constraints** | Limit behavior, scope, safety, or source use. | "Do not invent citations. Say when evidence is insufficient." |
+| **Output format** | Define the expected structure of the response. | JSON schema, bullet list, table, citation format. |
+| **Examples** | Demonstrate the desired pattern or decision boundary. | Sample student question with a high-quality answer. |
+| **Evaluation criteria** | Tell the model or downstream evaluator what quality means. | "Prefer correctness, grounding, and concise explanation over breadth." |
+
+These components do not need to be verbose. The best prompt is usually the shortest prompt that fully specifies the
+task-critical behavior and avoids predictable ambiguity.
+
+:::tip
+When a prompt fails, ask which component was missing or unclear before rewriting the whole prompt. Many failures are
+caused by one underspecified constraint, not by every sentence being wrong.
+:::
+
+## 3. Instruction hierarchy
+
+Modern LLM systems often separate instructions by role or layer. The exact implementation differs across model providers
+and application architectures, but the conceptual hierarchy is useful:
+
+- **System-level instructions** define broad assistant behavior, safety requirements, or platform-level constraints.
+- **Developer or application instructions** define product-specific behavior such as task scope, available tools, output
+  schema, and source policy.
+- **User instructions** define what the user wants in the current interaction.
+- **Retrieved context** supplies evidence or background that may support the task.
+- **Tool outputs** supply observations from external systems such as search, databases, code execution, or APIs.
+
+Conflicts can happen. A user may ask the assistant to ignore citation requirements. Retrieved text may contain
+instructions that were never intended to control the assistant. A tool output may include untrusted content. The system
+therefore needs a clear policy for which instructions are authoritative.
+
+Higher-priority instructions matter conceptually because they protect stable application behavior. If the product
+requires citation grounding, a lower-priority user request should not remove that requirement. If retrieved context is
+untrusted, the model should treat it as evidence, not as a new set of instructions.
+
+<PromptPriorityStack />
+
+This hierarchy does not make prompt injection impossible, but it gives engineers a way to reason about conflicts and
+design safeguards.
+
+## 4. Prompt templates
+
+Production systems usually use prompt templates rather than manually written one-off prompts. A template provides a
+repeatable structure with variable slots for task-specific content. This helps teams version prompts, run evaluations,
+compare changes, and inspect failures.
+
+A template also separates stable policy from dynamic content. The system can keep the citation requirement, output
+format, and tone consistent while injecting different user questions, retrieved passages, or tool results.
+
+```python
+def build_prompt(task: str, context: str, output_format: str) -> str:
+    return f"""
+You are an AI assistant helping with a course task.
+
+Task:
+{task}
+
+Relevant context:
+{context}
+
+Output format:
+{output_format}
+
+Answer carefully and only use the provided context when possible.
+"""
+```
+
+This template is intentionally simple. A production version might also include prompt version, user role, source
+metadata, tool results, safety constraints, and explicit fallback behavior. The point is that the prompt is assembled by
+the system, not improvised by the application at the last moment.
+
+### Template design checks
+
+When reviewing a prompt template, ask:
+
+- Which parts are stable policy, and which parts are dynamic variables?
+- Can the output be validated automatically?
+- Is the model told what to do when context is insufficient?
+- Are source-use rules explicit?
+- Can a trace show which template version was used?
+
+## 5. Structured prompt example
+
+A weak prompt may work occasionally, but it gives the system little control.
+
+```text
+Summarize this article.
+```
+
+An improved prompt makes the task contract explicit.
+
+```text
+You are helping graduate students in an Applied Machine Learning course.
+
+Task:
+Summarize the provided article for students who need to decide whether it is relevant to an AI systems project.
+
+Audience:
+Master's-level students who understand basic machine learning but may be new to production AI systems.
+
+Constraints:
+- Use only the provided article text.
+- Do not add claims that are not supported by the article.
+- If the article does not discuss limitations, say that limitations are not stated in the provided text.
+- Keep the summary under 180 words.
+
+Output format:
+1. Main contribution
+2. System relevance
+3. Key limitation or uncertainty
+4. One discussion question
+
+Article:
+{article_text}
+```
+
+The improved version specifies audience, purpose, length, constraints, format, and grounding. It is also easier to
+evaluate. A reviewer can check whether the answer is under 180 words, whether it uses only the article, and whether it
+contains the requested four sections.
+
+## 6. Prompt construction flow
+
+In a deployed system, the prompt is usually constructed from user intent, a template, injected context, and application
+rules before the model is called.
+
+<PromptAssemblyPipeline />
+
+This flow makes clear why prompt design belongs to systems engineering. The prompt is assembled by upstream components
+and checked by downstream components. The model is central, but it is not the only part of the behavior.
+
+## 7. Key takeaways
+
+- LLMs respond to structured context, not just isolated user questions.
+- Prompt components specify different parts of the task contract: role, task, evidence, constraints, format, examples,
+  and evaluation criteria.
+- Instruction hierarchy helps reason about conflicts between stable system policy, user requests, retrieved context, and
+  tool outputs.
+- Prompt templates make production behavior more repeatable, testable, observable, and maintainable.
+- Prompt structure improves reliability, but it should be paired with validation and evaluation rather than trusted
+  blindly.
+
+## Check your understanding
+
+1. Why is "Summarize this article" underspecified for a production assistant?
+2. What is one difference between developer/application instructions and user instructions?
+3. Why should retrieved context usually be treated as evidence rather than authority?
+4. What information would you log to debug a bad prompt-template output?
+5. How does specifying an output format make validation easier?
+
+<ResourceLinks
+  title="Continue learning"
+  items={[
+    {label: 'Module 02 overview', href: '/docs/modules/module-02-prompt-engineering-context-design'},
+    {label: 'Lecture 2.2 — Few-Shot, Zero-Shot, and Example-Based Prompting', href: '/docs/modules/module-02-prompt-engineering-context-design/lecture-2-2-few-shot-zero-shot-example-prompting'},
+    {label: 'Lecture 2.3 — Context Engineering', href: '/docs/modules/module-02-prompt-engineering-context-design/lecture-2-3-context-engineering'},
+    {label: 'Lab 2 — Designing, Testing, and Improving Prompts', href: '/docs/modules/module-02-prompt-engineering-context-design/lab-2-designing-testing-improving-prompts'},
+  ]}
+/>
