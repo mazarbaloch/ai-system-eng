@@ -1,0 +1,283 @@
+.figure {
+  width: 100%;
+  margin: 1.8rem auto 1.95rem;
+}
+
+.heading {
+  display: grid;
+  gap: 0.24rem;
+  margin-bottom: 1.45rem;
+  text-align: center;
+}
+
+.title {
+  color: var(--color-ink-950);
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  color: var(--color-ink-650, #63708c);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.desktopDiagram {
+  display: grid;
+  grid-template-columns: minmax(12rem, 14.2rem) 2.35rem minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: stretch;
+}
+
+.inputsColumn {
+  display: grid;
+  grid-template-rows: repeat(5, minmax(3.95rem, auto));
+  gap: 0.6rem;
+}
+
+.pipelineRow {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.stageGroup {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.card {
+  position: relative;
+  border: 1px solid rgba(21, 43, 100, 0.14);
+  border-left-width: 4px;
+  border-radius: 0.7rem;
+  background: #fff;
+  box-shadow: 0 14px 28px rgba(15, 30, 70, 0.05);
+}
+
+.inputCard {
+  min-height: 3.95rem;
+  padding: 0.78rem 0.95rem 0.74rem;
+}
+
+.stageCard {
+  width: 8.9rem;
+  min-height: 4.1rem;
+  padding: 0.82rem 0.92rem 0.78rem;
+}
+
+.cardTitle {
+  margin: 0 0 0.14rem;
+  color: var(--color-ink-950);
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.24;
+  letter-spacing: -0.02em;
+}
+
+.cardDescription {
+  margin: 0;
+  color: var(--color-ink-650, #63708c);
+  font-size: 0.78rem;
+  line-height: 1.38;
+}
+
+.intent {
+  border-left-color: #6366f1;
+}
+
+.instructions {
+  border-left-color: #3b82f6;
+}
+
+.examples {
+  border-left-color: #10b981;
+}
+
+.context {
+  border-left-color: #f59e0b;
+}
+
+.tools {
+  border-left-color: #ec4899;
+}
+
+.template,
+.package,
+.model {
+  border-left-color: #8b5cf6;
+}
+
+.validation {
+  border-left-color: #f59e0b;
+}
+
+.output {
+  border-left-color: #10b981;
+}
+
+.merge {
+  position: relative;
+  display: grid;
+  align-self: stretch;
+  grid-template-rows: repeat(5, minmax(3.95rem, auto));
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.mergeLine {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: rgba(21, 43, 100, 0.16);
+}
+
+.mergeLine::after {
+  position: absolute;
+  top: 50%;
+  right: -0.12rem;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-top: 1.5px solid rgba(21, 43, 100, 0.2);
+  border-right: 1.5px solid rgba(21, 43, 100, 0.2);
+  content: '';
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.mergeStem {
+  display: none;
+}
+
+.rowArrow {
+  position: relative;
+  display: inline-block;
+  width: 1.45rem;
+  height: 1px;
+  flex: 0 0 auto;
+  background: rgba(21, 43, 100, 0.2);
+}
+
+.rowArrow::after {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-top: 1.5px solid rgba(21, 43, 100, 0.22);
+  border-right: 1.5px solid rgba(21, 43, 100, 0.22);
+  content: '';
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.mobileDiagram {
+  display: none;
+}
+
+.mobileInputs,
+.mobileStages,
+.mobileStageGroup {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.mobileLabel {
+  color: var(--color-ink-650, #63708c);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mobileConnector {
+  position: relative;
+  width: 1.5px;
+  height: 1.45rem;
+  margin: 0.12rem auto 0.08rem;
+  background: rgba(21, 43, 100, 0.22);
+}
+
+.mobileConnector::after {
+  position: absolute;
+  right: 50%;
+  bottom: -0.06rem;
+  width: 0;
+  height: 0;
+  border-left: 0.28rem solid transparent;
+  border-right: 0.28rem solid transparent;
+  border-top: 0.4rem solid rgba(21, 43, 100, 0.22);
+  content: '';
+  transform: translateX(50%);
+}
+
+@media (max-width: 1120px) {
+  .stageCard {
+    width: 8.2rem;
+  }
+
+  .pipelineRow,
+  .stageGroup {
+    gap: 0.45rem;
+  }
+
+  .rowArrow {
+    width: 1.1rem;
+  }
+}
+
+@media (max-width: 980px) {
+  .desktopDiagram {
+    display: none;
+  }
+
+  .mobileDiagram {
+    display: grid;
+    gap: 0.72rem;
+    width: min(100%, 35rem);
+    margin: 0 auto;
+  }
+
+  .stageCard {
+    width: 100%;
+  }
+}
+
+[data-theme='dark'] .title,
+[data-theme='dark'] .cardTitle {
+  color: #f5f8ff;
+}
+
+[data-theme='dark'] .subtitle,
+[data-theme='dark'] .cardDescription,
+[data-theme='dark'] .mobileLabel {
+  color: #c8d3f2;
+}
+
+[data-theme='dark'] .card {
+  border-color: rgba(134, 164, 255, 0.18);
+  background: rgba(19, 29, 58, 0.96);
+  box-shadow: 0 14px 28px rgba(3, 9, 24, 0.22);
+}
+
+[data-theme='dark'] .mergeLine,
+[data-theme='dark'] .mergeStem,
+[data-theme='dark'] .rowArrow,
+[data-theme='dark'] .mobileConnector {
+  background: rgba(200, 211, 242, 0.28);
+}
+
+[data-theme='dark'] .mergeLine::after,
+[data-theme='dark'] .rowArrow::after {
+  border-top-color: rgba(200, 211, 242, 0.32);
+  border-right-color: rgba(200, 211, 242, 0.32);
+}
+
+[data-theme='dark'] .mobileConnector::after {
+  border-top-color: rgba(200, 211, 242, 0.32);
+}
