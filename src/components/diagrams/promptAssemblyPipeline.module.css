@@ -1,4 +1,6 @@
 .figure {
+  --pipeline-card-border: #e0e0e0;
+  --pipeline-connector: #d0d0d0;
   width: 100%;
   margin: 1.8rem auto 1.95rem;
 }
@@ -24,68 +26,80 @@
   line-height: 1.45;
 }
 
-.desktopDiagram {
-  display: grid;
-  grid-template-columns: minmax(12rem, 14.2rem) 2.35rem minmax(0, 1fr);
-  gap: 0.9rem;
-  align-items: stretch;
+.pipelineShell {
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
 }
 
-.inputsColumn {
-  display: grid;
-  grid-template-rows: repeat(5, minmax(3.95rem, auto));
-  gap: 0.6rem;
-}
-
-.pipelineRow {
+.pipeline {
   display: flex;
-  min-width: 0;
+  width: 100%;
+  min-width: 70.75rem;
+  max-width: 70.75rem;
+  margin: 0 auto;
   align-items: center;
-  gap: 0.55rem;
+  justify-content: center;
 }
 
+.inputs,
 .stageGroup {
   display: flex;
-  min-width: 0;
   align-items: center;
-  gap: 0.55rem;
+  flex: 0 0 auto;
 }
 
-.card {
-  position: relative;
-  border: 1px solid rgba(21, 43, 100, 0.14);
+.inputs {
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fanSvg {
+  margin: 0 0.125rem;
+  color: var(--pipeline-connector);
+  flex: 0 0 auto;
+}
+
+.node {
+  display: flex;
+  min-height: 3.5rem;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  border: 1.5px solid var(--pipeline-card-border);
   border-left-width: 4px;
-  border-radius: 0.7rem;
+  border-radius: 0.5rem;
   background: #fff;
-  box-shadow: 0 14px 28px rgba(15, 30, 70, 0.05);
 }
 
-.inputCard {
-  min-height: 3.95rem;
-  padding: 0.78rem 0.95rem 0.74rem;
+.inputNode {
+  width: 13.875rem;
+  padding: 0.625rem 0.75rem;
 }
 
-.stageCard {
-  width: 8.9rem;
-  min-height: 4.1rem;
-  padding: 0.82rem 0.92rem 0.78rem;
+.template,
+.package,
+.model,
+.validation,
+.output {
+  padding: 0.625rem 0.75rem;
 }
 
 .cardTitle {
-  margin: 0 0 0.14rem;
+  margin: 0 0 0.125rem;
   color: var(--color-ink-950);
   font-family: var(--font-display);
-  font-size: 0.92rem;
+  font-size: 0.8125rem;
   font-weight: 800;
-  line-height: 1.24;
+  line-height: 1.2;
   letter-spacing: -0.02em;
 }
 
 .cardDescription {
   margin: 0;
   color: var(--color-ink-650, #63708c);
-  font-size: 0.78rem;
-  line-height: 1.38;
+  font-size: 0.6875rem;
+  line-height: 1.25;
 }
 
 .intent {
@@ -108,143 +122,55 @@
   border-left-color: #ec4899;
 }
 
-.template,
-.package,
-.model {
+.template {
   border-left-color: #8b5cf6;
+  width: 9.0625rem;
+}
+
+.package {
+  border-left-color: #8b5cf6;
+  width: 8.875rem;
+}
+
+.model {
+  border-left-color: #6366f1;
+  width: 9rem;
 }
 
 .validation {
   border-left-color: #f59e0b;
+  width: 11.125rem;
 }
 
 .output {
   border-left-color: #10b981;
+  width: 8.375rem;
 }
 
-.merge {
-  position: relative;
-  display: grid;
-  align-self: stretch;
-  grid-template-rows: repeat(5, minmax(3.95rem, auto));
-  gap: 0.6rem;
+.arrow {
+  display: flex;
   align-items: center;
-}
-
-.mergeLine {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 1px;
-  background: rgba(21, 43, 100, 0.16);
-}
-
-.mergeLine::after {
-  position: absolute;
-  top: 50%;
-  right: -0.12rem;
-  width: 0.38rem;
-  height: 0.38rem;
-  border-top: 1.5px solid rgba(21, 43, 100, 0.2);
-  border-right: 1.5px solid rgba(21, 43, 100, 0.2);
-  content: '';
-  transform: translateY(-50%) rotate(45deg);
-}
-
-.mergeStem {
-  display: none;
-}
-
-.rowArrow {
-  position: relative;
-  display: inline-block;
-  width: 1.45rem;
-  height: 1px;
   flex: 0 0 auto;
-  background: rgba(21, 43, 100, 0.2);
+  padding: 0 0.125rem;
 }
 
-.rowArrow::after {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  width: 0.38rem;
-  height: 0.38rem;
-  border-top: 1.5px solid rgba(21, 43, 100, 0.22);
-  border-right: 1.5px solid rgba(21, 43, 100, 0.22);
-  content: '';
-  transform: translateY(-50%) rotate(45deg);
+.arrowLine {
+  width: 1rem;
+  height: 1.5px;
+  background: var(--pipeline-connector);
 }
 
-.mobileDiagram {
-  display: none;
-}
-
-.mobileInputs,
-.mobileStages,
-.mobileStageGroup {
-  display: grid;
-  gap: 0.7rem;
-}
-
-.mobileLabel {
-  color: var(--color-ink-650, #63708c);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.mobileConnector {
-  position: relative;
-  width: 1.5px;
-  height: 1.45rem;
-  margin: 0.12rem auto 0.08rem;
-  background: rgba(21, 43, 100, 0.22);
-}
-
-.mobileConnector::after {
-  position: absolute;
-  right: 50%;
-  bottom: -0.06rem;
+.arrowHead {
   width: 0;
   height: 0;
-  border-left: 0.28rem solid transparent;
-  border-right: 0.28rem solid transparent;
-  border-top: 0.4rem solid rgba(21, 43, 100, 0.22);
-  content: '';
-  transform: translateX(50%);
+  border-top: 0.3125rem solid transparent;
+  border-bottom: 0.3125rem solid transparent;
+  border-left: 0.4375rem solid var(--pipeline-connector);
 }
 
-@media (max-width: 1120px) {
-  .stageCard {
-    width: 8.2rem;
-  }
-
-  .pipelineRow,
-  .stageGroup {
-    gap: 0.45rem;
-  }
-
-  .rowArrow {
-    width: 1.1rem;
-  }
-}
-
-@media (max-width: 980px) {
-  .desktopDiagram {
-    display: none;
-  }
-
-  .mobileDiagram {
-    display: grid;
-    gap: 0.72rem;
-    width: min(100%, 35rem);
-    margin: 0 auto;
-  }
-
-  .stageCard {
-    width: 100%;
+@media (max-width: 900px) {
+  .pipeline {
+    justify-content: flex-start;
   }
 }
 
@@ -254,30 +180,15 @@
 }
 
 [data-theme='dark'] .subtitle,
-[data-theme='dark'] .cardDescription,
-[data-theme='dark'] .mobileLabel {
+[data-theme='dark'] .cardDescription {
   color: #c8d3f2;
 }
 
-[data-theme='dark'] .card {
-  border-color: rgba(134, 164, 255, 0.18);
+[data-theme='dark'] .figure {
+  --pipeline-card-border: rgba(134, 164, 255, 0.18);
+  --pipeline-connector: rgba(200, 211, 242, 0.32);
+}
+
+[data-theme='dark'] .node {
   background: rgba(19, 29, 58, 0.96);
-  box-shadow: 0 14px 28px rgba(3, 9, 24, 0.22);
-}
-
-[data-theme='dark'] .mergeLine,
-[data-theme='dark'] .mergeStem,
-[data-theme='dark'] .rowArrow,
-[data-theme='dark'] .mobileConnector {
-  background: rgba(200, 211, 242, 0.28);
-}
-
-[data-theme='dark'] .mergeLine::after,
-[data-theme='dark'] .rowArrow::after {
-  border-top-color: rgba(200, 211, 242, 0.32);
-  border-right-color: rgba(200, 211, 242, 0.32);
-}
-
-[data-theme='dark'] .mobileConnector::after {
-  border-top-color: rgba(200, 211, 242, 0.32);
 }

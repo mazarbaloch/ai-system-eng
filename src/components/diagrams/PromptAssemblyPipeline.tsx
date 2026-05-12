@@ -64,64 +64,49 @@ export default function PromptAssemblyPipeline() {
         <span className={styles.subtitle}>How inputs are collected, packaged, and processed into a final output</span>
       </figcaption>
 
-      <div className={styles.desktopDiagram}>
-        <div className={styles.inputsColumn}>
-          {inputSignals.map((signal) => (
-            <article className={`${styles.card} ${styles.inputCard} ${styles[signal.tone]}`} key={signal.title}>
-              <h3 className={styles.cardTitle}>{signal.title}</h3>
-              <p className={styles.cardDescription}>{signal.description}</p>
-            </article>
-          ))}
-        </div>
+      <div className={styles.pipelineShell}>
+        <div className={styles.pipeline}>
+          <div className={styles.inputs}>
+            {inputSignals.map((signal) => (
+              <article className={`${styles.node} ${styles.inputNode} ${styles[signal.tone]}`} key={signal.title}>
+                <h3 className={styles.cardTitle}>{signal.title}</h3>
+                <p className={styles.cardDescription}>{signal.description}</p>
+              </article>
+            ))}
+          </div>
 
-        <div className={styles.merge} aria-hidden="true">
-          {inputSignals.map((signal) => (
-            <span className={styles.mergeLine} key={signal.title} />
-          ))}
-          <span className={styles.mergeStem} />
-        </div>
+          <svg
+            className={styles.fanSvg}
+            width="48"
+            height="312"
+            viewBox="0 0 48 312"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <line x1="0" y1="28" x2="36" y2="156" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="0" y1="92" x2="36" y2="156" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="0" y1="156" x2="36" y2="156" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="0" y1="220" x2="36" y2="156" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="0" y1="284" x2="36" y2="156" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <polygon points="36,151 48,156 36,161" fill="currentColor" />
+          </svg>
 
-        <div className={styles.pipelineRow}>
           {pipelineStages.map((stage, index) => (
             <div className={styles.stageGroup} key={stage.title}>
-              <article className={`${styles.card} ${styles.stageCard} ${styles[stage.tone]}`}>
+              <article className={`${styles.node} ${styles[stage.tone]}`}>
                 <h3 className={styles.cardTitle}>{stage.title}</h3>
                 <p className={styles.cardDescription}>{stage.description}</p>
               </article>
               {index < pipelineStages.length - 1 ? (
-                <span className={styles.rowArrow} aria-hidden="true" />
+                <span className={styles.arrow} aria-hidden="true">
+                  <span className={styles.arrowLine} />
+                  <span className={styles.arrowHead} />
+                </span>
               ) : null}
             </div>
           ))}
         </div>
-      </div>
-
-      <div className={styles.mobileDiagram}>
-        <section className={styles.mobileInputs}>
-          <span className={styles.mobileLabel}>Inputs</span>
-          {inputSignals.map((signal) => (
-            <article className={`${styles.card} ${styles.inputCard} ${styles[signal.tone]}`} key={signal.title}>
-              <h3 className={styles.cardTitle}>{signal.title}</h3>
-              <p className={styles.cardDescription}>{signal.description}</p>
-            </article>
-          ))}
-        </section>
-
-        <span className={styles.mobileConnector} aria-hidden="true" />
-
-        <section className={styles.mobileStages}>
-          {pipelineStages.map((stage, index) => (
-            <div className={styles.mobileStageGroup} key={stage.title}>
-              <article className={`${styles.card} ${styles.stageCard} ${styles[stage.tone]}`}>
-                <h3 className={styles.cardTitle}>{stage.title}</h3>
-                <p className={styles.cardDescription}>{stage.description}</p>
-              </article>
-              {index < pipelineStages.length - 1 ? (
-                <span className={styles.mobileConnector} aria-hidden="true" />
-              ) : null}
-            </div>
-          ))}
-        </section>
       </div>
     </figure>
   );
