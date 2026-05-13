@@ -48,11 +48,12 @@ export const courseModules: CourseModule[] = [
     slug: 'module-04-embeddings-semantic-retrieval',
     title: 'Embeddings & Semantic Retrieval',
     shortTitle: 'Semantic Retrieval',
-    summary: 'Index meaning instead of keywords to support retrieval workflows grounded in relevance.',
+    summary:
+      'Covers embeddings, vector databases, similarity search, semantic retrieval, hybrid retrieval, reranking, and retrieval evaluation.',
     description:
-      'Students compare embedding pipelines, vector search behavior, and the data preparation choices that matter most.',
-    topics: ['Embeddings', 'Vector databases', 'Similarity search'],
-    tags: ['Embeddings', 'Search'],
+      'Students compare embedding pipelines, vector search behavior, metadata filtering, reranking, and the evaluation choices that matter most.',
+    topics: ['Embeddings', 'Vector databases', 'Similarity search', 'Hybrid retrieval', 'Retrieval evaluation'],
+    tags: ['Embeddings', 'Vector Search', 'Semantic Retrieval', 'Retrieval Evaluation'],
     icon: 'retrieval',
     tone: 'green',
     docPath: '/docs/modules/module-04-embeddings-semantic-retrieval',
@@ -62,11 +63,12 @@ export const courseModules: CourseModule[] = [
     slug: 'module-05-retrieval-augmented-generation',
     title: 'Retrieval-Augmented Generation (RAG)',
     shortTitle: 'RAG',
-    summary: 'Design grounded generation pipelines with chunking, ranking, metadata, and answer assembly.',
+    summary:
+      'Design grounded generation pipelines with retrieval, chunking, metadata, reranking, citations, and evaluation.',
     description:
-      'RAG is treated as a full system pattern rather than a single model call, with attention to traceability and relevance.',
-    topics: ['RAG architecture', 'Chunking strategies', 'Metadata design'],
-    tags: ['RAG', 'Grounding'],
+      'RAG is treated as a full system pattern rather than a single model call, with attention to ingestion, grounding, traceability, safety, and answer quality.',
+    topics: ['RAG architecture', 'Chunking strategies', 'Metadata design', 'Grounded generation', 'RAG evaluation'],
+    tags: ['RAG', 'Grounding', 'Chunking', 'Metadata', 'Evaluation'],
     icon: 'rag',
     tone: 'green',
     docPath: '/docs/modules/module-05-retrieval-augmented-generation',

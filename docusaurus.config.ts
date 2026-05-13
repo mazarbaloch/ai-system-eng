@@ -1,6 +1,8 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import rehypeKatex from 'rehype-katex';
+import remarkMath from 'remark-math';
 
 const config: Config = {
   title: 'AI Systems Engineering',
@@ -30,6 +32,10 @@ const config: Config = {
       href: 'https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap',
       type: 'text/css',
     },
+    {
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css',
+      type: 'text/css',
+    },
   ],
   presets: [
     [
@@ -39,6 +45,8 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           routeBasePath: 'docs',
           sidebarCollapsible: true,
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
         },
         blog: false,
         theme: {
