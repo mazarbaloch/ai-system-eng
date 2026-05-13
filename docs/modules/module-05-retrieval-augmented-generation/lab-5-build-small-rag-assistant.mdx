@@ -1,0 +1,93 @@
+---
+title: "Lab 5 — Build a Small RAG Assistant"
+hide_title: true
+sidebar_label: "Lab 5 — Build a Small RAG Assistant"
+sidebar_position: 2
+slug: /modules/module-05-retrieval-augmented-generation/lab-5-build-small-rag-assistant
+description: "Build a small RAG assistant, compare chunking strategies, generate cited answers, and evaluate retrieval and citation quality."
+tags:
+  - RAG
+  - chunking
+  - metadata
+  - citations
+  - retrieval evaluation
+  - lab
+---
+
+<PageHeader
+  eyebrow="Lab 5"
+  title="Build a Small RAG Assistant"
+  description="In this lab, you will build a small RAG assistant over course materials or technical documentation and evaluate whether it retrieves and answers correctly."
+/>
+
+<LearningObjectives
+  title="Lab goals"
+  items={[
+    'Parse and clean a small document collection for retrieval-augmented generation.',
+    'Compare at least two chunking strategies using the same corpus and evaluation questions.',
+    'Attach metadata, index chunks, retrieve evidence, and generate grounded answers with citations.',
+    'Evaluate retrieval quality, answer correctness, citation correctness, and visible failure modes.',
+  ]}
+/>
+
+<CourseCallout title="Lab framing">
+  The goal is to connect the retrieval layer to generation without losing evidence discipline. Your assistant should be
+  judged on whether it retrieves the right source, uses it faithfully, cites it correctly, and exposes the cases where
+  the system is not ready for production.
+</CourseCallout>
+
+## Goal
+
+Build a small RAG assistant over a course document collection and evaluate whether it retrieves and answers correctly.
+
+## Suggested corpus
+
+Use 5–10 documents such as:
+
+- course syllabus;
+- module descriptions;
+- assignment instructions;
+- grading criteria;
+- university AI policy;
+- selected technical documentation pages.
+
+## Tasks
+
+1. Parse and clean the documents.
+2. Split them using at least two chunking strategies.
+3. Attach metadata to every chunk.
+4. Embed and index the chunks.
+5. Implement semantic retrieval.
+6. Add metadata filtering.
+7. Add a grounded prompt template.
+8. Generate answers with citations.
+9. Create 10 evaluation questions.
+10. Compare retrieval quality between the two chunking strategies.
+
+## Required output
+
+Students should submit:
+
+- a short architecture diagram;
+- the chunking strategy used;
+- the metadata schema;
+- retrieval examples;
+- generated answers with citations;
+- evaluation table;
+- reflection on failure modes.
+
+## Evaluation table template
+
+| Question | Expected source | Retrieved in top-5? | Answer correct? | Citation correct? | Notes |
+|---|---|---:|---:|---:|---|
+| Example question | syllabus#assessment | Yes | Yes | Yes | Good retrieval |
+| Example question | module-05#chunking | No | No | No | Query rewrite needed |
+
+<ResourceLinks
+  title="Continue learning"
+  items={[
+    {label: 'Module 05 overview', href: '/docs/modules/module-05-retrieval-augmented-generation'},
+    {label: 'Lab: RAG pipeline evaluation', href: '/docs/labs/lab-rag-pipeline-evaluation'},
+    {label: 'Module 06 — Memory & Stateful Systems', href: '/docs/modules/module-06-memory-stateful-systems'},
+  ]}
+/>

@@ -7,6 +7,8 @@ slug: /modules/module-01-foundations
 description: Module 01 overview for the foundations of AI systems.
 ---
 
+import AiSystemEvolutionPipeline from '@site/src/components/diagrams/AiSystemEvolutionPipeline';
+
 <ModulePageHero slug="module-01-foundations" />
 
 <CourseCallout title="Module arc">
@@ -104,13 +106,7 @@ At this point, an "AI application" is best understood as a coordinated software 
 but not sufficient component. The course is therefore about **systems for intelligence**, not only about intelligent
 models.
 
-```mermaid
-flowchart LR
-    A["Isolated predictive model"] --> B["ML pipeline<br/>features, training, deployment, monitoring"]
-    B --> C["Deep learning service<br/>GPU inference, unstructured data, specialized serving"]
-    C --> D["LLM-centered system<br/>prompting, context assembly, orchestration"]
-    D --> E["Tool-using and multimodal AI system<br/>retrieval, memory, APIs, policies, observability"]
-```
+<AiSystemEvolutionPipeline />
 
 :::tip
 The dominant engineering challenge usually moves outward over time. As models become more capable, the bottleneck often

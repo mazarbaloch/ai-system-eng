@@ -1,0 +1,83 @@
+---
+title: "Lab 4 — Build and Evaluate a Retrieval Layer"
+hide_title: true
+sidebar_label: "Lab 4 — Build and Evaluate a Retrieval Layer"
+sidebar_position: 2
+slug: /modules/module-04-embeddings-semantic-retrieval/lab-4-build-evaluate-retrieval-layer
+description: "Build a small semantic retrieval layer, evaluate retrieval quality, and compare retrieval strategies using embedding-based search."
+tags:
+  - embeddings
+  - semantic retrieval
+  - vector search
+  - retrieval evaluation
+  - lab
+---
+
+<PageHeader
+  eyebrow="Lab 4"
+  title="Build and Evaluate a Retrieval Layer"
+  description="In this lab, you will build a small semantic retrieval layer, compare lexical, dense, hybrid, and reranked retrieval strategies, and evaluate retrieval quality with realistic queries."
+/>
+
+<LearningObjectives
+  title="Lab goals"
+  items={[
+    'Load and chunk course materials or technical documentation while preserving retrieval metadata.',
+    'Build a dense vector retrieval baseline and compare it with a keyword baseline.',
+    'Experiment with hybrid retrieval, chunk sizes, contextualized chunks, and optional reranking.',
+    'Evaluate retrieval strategies using recall@5, nDCG@10, latency, cost, and failure analysis.',
+  ]}
+/>
+
+<CourseCallout title="Lab framing">
+  The goal is not to build the largest possible search stack. The goal is to make retrieval quality measurable: define a
+  corpus, create relevance judgments, compare retrieval strategies, and explain which design choices are ready for a RAG
+  or agent system.
+</CourseCallout>
+
+## Goal
+
+Build a small semantic retrieval service for course materials or technical documentation.
+
+## Required components
+
+1. A document loader for Markdown or PDF-derived text.
+2. A chunking strategy with metadata preservation.
+3. An embedding model or embedding API.
+4. A vector index or vector database.
+5. A keyword baseline such as BM25.
+6. A hybrid retrieval method.
+7. A reranking step, optional but recommended.
+8. An evaluation set with at least 20 queries.
+9. A report comparing retrieval strategies.
+
+## Suggested experiment matrix
+
+| Experiment | Retriever | Reranker | Expected lesson |
+|---|---|---|---|
+| A | BM25 only | none | lexical baseline |
+| B | dense only | none | semantic retrieval baseline |
+| C | BM25 + dense | none | hybrid improvement |
+| D | BM25 + dense | cross-encoder or LLM reranker | precision improvement |
+| E | dense with different chunk sizes | none | chunking effect |
+| F | dense with contextualized chunks | none or reranker | context preservation effect |
+
+## Report questions
+
+1. Which retriever had the best recall@5?
+2. Which retriever had the best nDCG@10?
+3. Which queries failed under dense-only retrieval?
+4. Which queries failed under BM25-only retrieval?
+5. How did chunk size affect results?
+6. Did reranking improve answer-bearing precision?
+7. What was the latency/cost tradeoff?
+8. What would you change before using this in production?
+
+<ResourceLinks
+  title="Continue learning"
+  items={[
+    {label: 'Module 04 overview', href: '/docs/modules/module-04-embeddings-semantic-retrieval'},
+    {label: 'Module 05 — Retrieval-Augmented Generation (RAG)', href: '/docs/modules/module-05-retrieval-augmented-generation'},
+    {label: 'Lab: RAG pipeline evaluation', href: '/docs/labs/lab-rag-pipeline-evaluation'},
+  ]}
+/>
